@@ -313,7 +313,7 @@ static telegram_kbrd_t keyboard =
 
 static void send_stat_telegram(void *teleCtx, telegram_int_t chat_id, const char *header, starline_status_packet_t *status)
 {
-  telegram_send_text(teleCtx, chat_id, NULL, "%s\r\n"
+  telegram_send_text(teleCtx, chat_id, &keyboard, "%s\r\n"
                                           "Temperature[0]: %d C\r\n"
                                           "Temperature[1]: %d C\r\n"
                                           "RPM: %d\r\n"
@@ -364,7 +364,7 @@ static void cmd_eng_stop_cb(libusb_device_handle *dev, void *teleCtx, telegram_u
   if (res < 0)
   {
       telegram_answer_cb_query(teleCtx, info->callback_query->id, "Fail auth", false, NULL, 0);
-      return;
+      return;   
   }
 
   memset(out_buffer, 0x00, sizeof(out_buffer));
