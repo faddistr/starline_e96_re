@@ -163,8 +163,9 @@ void starline_on_data(void *hnd, starline_status_packet_t *packet)
     if (alarm_status_saved != packet->status.alarm_status)
     {
       alarm_status_saved = packet->status.alarm_status;
-      if ((packet->status.alarm_status  & STARLINE_ALARM_STATUS_ON_MASK) &&
-        (packet->status.alarm_status & STARLINE_ALARM_MASK))
+      if ((packet->status.alarm_status  & STARLINE_ALARM_STATUS_ON_MASK)
+          && (packet->status.alarm_status & STARLINE_ALARM_MASK)
+          && (packet->status.rpm == 0))
       {
         send_stat_telegram(telegramHandle, config->user_id, "Alarm:", packet);
       }
